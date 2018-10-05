@@ -1,0 +1,5 @@
+[0m[[0m[31merror[0m] [0m[0m/home/alexandros/Desktop/ID2221_Data_Intensive_Computing/Lab3/src/sparkstreaming/KafkaSpark.scala:76:33: not enough arguments for method saveToCassandra: (keyspaceName: String, tableName: String, columnNames: com.datastax.spark.connector.ColumnSelector, writeConf: com.datastax.spark.connector.writer.WriteConf)(implicit connector: com.datastax.spark.connector.cql.CassandraConnector, implicit rwf: com.datastax.spark.connector.writer.RowWriterFactory[(String, Double)])Unit.[0m
+[0m[[0m[31merror[0m] [0m[0mUnspecified value parameter tableName.[0m
+[0m[[0m[31merror[0m] [0m[0m    stateDstream.saveToCassandra("avg_space,avg")[0m
+[0m[[0m[31merror[0m] [0m[0m                                ^[0m
+[0m[[0m[31merror[0m] [0m[0mone error found[0m
