@@ -59,12 +59,13 @@ object KafkaSpark {
     val pairs = messages.map(_._2).map(help_split)
 
     // measure the average value for each key in a stateful manner
-    def mappingFunc(key: String, value: Option[Double], state: State[(Double, Int)]): (String, Double) = {
+    def mappingFunc(key: String, value: Option[Double], state: State[(Int, Int)]): (String, Double) = {
 
-      val help_value = value.getOrElse(0D)
-      val help_state = state.getOption.getOrElse((0D, 0))
+      val temp_value = value.getOrElse(0)
+      val prev_state = state.getOption.getOrElse((0, 0))
 
-      state.update(help_state._1 + help_value, help_state._2+ 1)
+      state.update(prev_state._1 + temp_value, prev_state._2+ 1)
+      //No need toget or else since there is sure a value is stored in state
       val avg = state.get()._1 / state.get()._2
 
       (key, avg)
