@@ -78,5 +78,6 @@ object KafkaSpark {
     ssc.checkpoint("./checkpoints")
     ssc.start()
     ssc.awaitTermination()
+    session.close()
   }
 }
