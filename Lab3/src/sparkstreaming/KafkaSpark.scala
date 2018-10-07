@@ -49,7 +49,7 @@ object KafkaSpark {
     val kafkaTopics= Set("avg")
     val messages = KafkaUtils.createDirectStream[String, String, StringDecoder, StringDecoder](ssc, kafkaConf, kafkaTopics)
 
-    def help_split(pair: String): (String, Double)={
+    def help_split(pair: String): (String, Int)={
 
       val splited = pair.split(",")
       (splited(0), splited(1).toInt)
@@ -59,14 +59,15 @@ object KafkaSpark {
     val pairs = messages.map(_._2).map(help_split)
 
     // measure the average value for each key in a stateful manner
-    def mappingFunc(key: String, value: Option[Double], state: State[(Int, Int)]): (String, Double) = {
+    def mappingFunc(key: String, value: Option[Int], state: State[(Int, Int)]): (String, Double) = {
 
       val temp_value = value.getOrElse(0)
-      val prev_state = state.getOption.getOrElse((0, 0))
+      val prev_state= state.getOption.getOrElse((0, 0))
 
       state.update(prev_state._1 + temp_value, prev_state._2+ 1)
-      //No need toget or else since there is sure a value is stored in state
-      val avg = state.get()._1 / state.get()._2
+      // no need to get or else since now state has at least one value
+      // you should also cast either sum or count to Doule in order to avoid an integer division
+      val avg : Double = state.get()._1.toDouble / state.get()._2
 
       (key, avg)
     }
