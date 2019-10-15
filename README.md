@@ -14,3 +14,6 @@ Contains two Jupyter notebooks containing Scala code for Spark and Spark SQL ope
 
 Create a Spark streaming application that receives messages from Kafka and stores and updates results in the Cassandra datastore.
 
+## Lab4: Spark, GraphX. 
+
+Process graph data in Spark with Graphx.
