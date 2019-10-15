@@ -1,2 +1,2 @@
 *.ipynb linguist-documentation
-*.xml linguist-detectable=false
+*.xsl linguist-language=Scala
